@@ -1,3 +1,10 @@
+#Pycache
 __pycache__/
-venv
+#Virtual environment
+venv/
+#To remove all json use *.json
 temp.json
+#Removes .env
+.env
+#Removes test folder
+.\test
