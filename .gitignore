@@ -4,6 +4,7 @@ __pycache__/
 venv/
 #To remove all json use *.json
 temp.json
+test.json
 #Removes .env
 .env
 #Removes test folder
