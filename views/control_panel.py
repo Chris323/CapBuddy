@@ -41,3 +41,6 @@ class ControlPanel(QWidget):
 
         self.setLayout(layout)
         self.resize(150, 100)
+    
+    def closeEvent(self, event):
+        QApplication.quit()

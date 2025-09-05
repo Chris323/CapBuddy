@@ -30,3 +30,4 @@ class Overlay(QWidget):
         painter = QPainter(self)
         for drawer, rect in self.manager.get_draw_commands(self.config, self.rect()):
             drawer.draw(painter, rect)
+    

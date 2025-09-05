@@ -75,6 +75,5 @@ class OverlayController:
         thread = threading.Thread(target=listener, daemon=True)
         thread.start()
 
-
     def quit_app(self):
         QApplication.quit()
