@@ -1,4 +1,4 @@
-('C:\\Users\\chris\\OneDrive\\Desktop\\repos\\CapBuddy.v2\\build\\MyApp\\MyApp.pkg',
+('C:\\Users\\chris\\OneDrive\\Desktop\\repos\\CapBuddy.v2\\build\\MyApp\\CapSure.pkg',
  {'BINARY': True,
   'DATA': True,
   'EXECUTABLE': True,
