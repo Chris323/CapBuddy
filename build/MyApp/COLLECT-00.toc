@@ -1,5 +1,5 @@
-([('CapSure.exe',
-   'C:\\Users\\chris\\OneDrive\\Desktop\\repos\\CapBuddy.v2\\build\\MyApp\\CapSure.exe',
+([('CapBuddy.exe',
+   'C:\\Users\\chris\\OneDrive\\Desktop\\repos\\CapBuddy.v2\\build\\MyApp\\CapBuddy.exe',
    'EXECUTABLE'),
   ('python313.dll',
    'C:\\Users\\chris\\AppData\\Local\\Programs\\Python\\Python313\\python313.dll',
