@@ -9,3 +9,27 @@ test.json
 .env
 #Removes test folder
 views/test/
+
+# Qt build files
+build/
+dist/
+*.exe
+*.app
+*.msi
+*.dll
+*.so
+
+# Code signing
+*.pfx
+*.p12
+*.cer
+*.key
+
+# VSCode or IDE configs
+.vscode/
+.idea/
+*.swp
+
+# Logs or temp files
+*.log
+*.tmp
