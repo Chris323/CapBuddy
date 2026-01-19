@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 class OverlayConfig:
     def __init__(self):
         self.aspect_ratio = "None"
-        self.composition = "None"
+        self.composition = "Rule of Thirds"
         self.show_crosshair = False
         self.show_reticle = False
 
@@ -31,6 +31,7 @@ class OverlayController:
         self.control_panel.overlay_toggle.toggled.connect(self.show_overlay_toggle)
         self.control_panel.button_quit.clicked.connect(self.quit_app)
 
+    #Slots
     def aspect_ratio_cbox_selector(self, text):
         self.config.aspect_ratio = text
         self.overlay.update()

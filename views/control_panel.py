@@ -18,13 +18,13 @@ class ControlPanel(QWidget):
         self.aspect_ratio_selector.addItems(["None", "9:16", "4:3", "1:1"])
 
         self.composition_selector = QComboBox()
-        self.composition_selector.addItems(["None", "Rule of Thirds", "Horizon Line"])
+        self.composition_selector.addItems(["Rule of Thirds", "Horizon Line", "None"])
         
         self.reticle_toggle = QCheckBox("Show Reticle")
 
         self.crosshair_toggle = QCheckBox("Show Crosshairs")
 
-        self.overlay_toggle = QCheckBox("Overlay Visible")
+        self.overlay_toggle = QCheckBox("Overlay Visibility")
         self.overlay_toggle.setChecked(True) #move to model/settings.py, figure out a save state for presets and profiles memory
 
         self.button_quit = QPushButton("Quit CapBuddy")

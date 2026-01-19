@@ -29,11 +29,11 @@ def main():
     #settings = Settings()
 
     drawer_manager = OverlayDrawerManager()
-    config = OverlayConfig()
+    config = OverlayConfig() #Default configuration
     controller = OverlayController(overlay, control_panel, drawer_manager)
 
     overlay.manager = drawer_manager  # So overlay.paintEvent can access it
-    overlay.config = config
+    overlay.config = config 
     controller.config = config
     overlay.show()
     control_panel.show()
