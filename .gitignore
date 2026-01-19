@@ -10,6 +10,8 @@ test.json
 #Removes test folder
 views/test/
 
+dist.zip
+
 # Qt build files
 build/
 dist/
