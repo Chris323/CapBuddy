@@ -21,7 +21,7 @@ class OverlayController:
         self.config = None
 
         self.setup_signals()
-        self._create_hotkey_listener()
+        #self._create_hotkey_listener()
 
     def setup_signals(self):
         self.control_panel.aspect_ratio_selector.currentTextChanged.connect(self.aspect_ratio_cbox_selector)

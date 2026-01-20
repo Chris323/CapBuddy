@@ -7,19 +7,8 @@ from views.overlay_drawers.overlay_draw_manager import OverlayDrawerManager
 from controller.overlay_controller import OverlayConfig
 import sys
 
-# def main():
-#     app = QtWidgets.QApplication(sys.argv)
-
-#     overlay = Overlay()
-#     control_panel = ControlPanel()  # Your control widget, temporarily using overlay in its constructor
-#     control_panel.move(100, 100)
-#     settings = Settings()
-#     controller = OverlayController(overlay, control_panel, settings) #need to move signals and slots into this class
-    
-#     overlay.show()
-#     control_panel.show()
-
-#     sys.exit(app.exec())
+import ctypes
+from controller.hotkeys import GlobalHotKeyFilter, user32, F9_KEY, HOTKEY_ID
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
@@ -27,17 +16,23 @@ def main():
     overlay = Overlay()
     control_panel = ControlPanel()
     #settings = Settings()
-
     drawer_manager = OverlayDrawerManager()
     config = OverlayConfig() #Default configuration
+
     controller = OverlayController(overlay, control_panel, drawer_manager)
 
     overlay.manager = drawer_manager  # So overlay.paintEvent can access it
     overlay.config = config 
     controller.config = config
+
+    hotkey_filter = GlobalHotKeyFilter(controller.cycle_colors)
+    app.installNativeEventFilter(hotkey_filter)
+    if not user32.RegisterHotKey(None, HOTKEY_ID, 0, F9_KEY):
+        raise RuntimeError("Failed to register F9")
+    app.aboutToQuit.connect(lambda: user32.UnregisterHotKey(None, HOTKEY_ID))
+
     overlay.show()
     control_panel.show()
-
     sys.exit(app.exec())
 
 if __name__ == "__main__":
