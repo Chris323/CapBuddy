@@ -5,13 +5,15 @@ from PySide6 import QtCore
 
 user32 = ctypes.windll.user32
 WM_HOTKEY = 0x0312
-F9_KEY = 0x78
-HOTKEY_ID = 1
+VK_F9 = 0x78
+VK_F10 = 0x79
+HOTKEY_F9_ID = 1
+HOTKEY_F10_ID = 2
 
 class GlobalHotKeyFilter(QAbstractNativeEventFilter):
-    def __init__(self, callback):
+    def __init__(self, callbacks: dict[int, callable]):
         super().__init__()
-        self._callback = callback
+        self._callbacks = callbacks
 
     def nativeEventFilter(self, eventType, message):
         try:
@@ -28,8 +30,10 @@ class GlobalHotKeyFilter(QAbstractNativeEventFilter):
 
             msg = wintypes.MSG.from_address(addr)
 
-            if msg.message == WM_HOTKEY and msg.wParam == HOTKEY_ID:
-                self._callback()
+            if msg.message == WM_HOTKEY:
+                callback = self._callbacks.get(msg.wParam)
+                if callback:
+                    callback()
                 return True, 0
 
             return False, 0
