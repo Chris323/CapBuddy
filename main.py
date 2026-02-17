@@ -26,15 +26,15 @@ def main():
     controller.config = config
 
     #Hot key instantiation, adding it to QT loop, error checking, killing process
-    hotkey_filter = GlobalHotKeyFilter({HOTKEY_F9_ID: controller.cycle_colors, HOTKEY_F10_ID: controller.show_overlay_toggle})
-    app.installNativeEventFilter(hotkey_filter)
+    # hotkey_filter = GlobalHotKeyFilter({HOTKEY_F9_ID: controller.cycle_colors, HOTKEY_F10_ID: controller.show_overlay_toggle})
+    # app.installNativeEventFilter(hotkey_filter)
 
-    if not user32.RegisterHotKey(None, HOTKEY_F9_ID, 0, VK_F9):
-        raise RuntimeError("Failed to register Hotkey F9")
-    if not user32.RegisterHotKey(None, HOTKEY_F10_ID, 0, VK_F10):
-        raise RuntimeError("Failed to register Hotkey F10")
-    app.aboutToQuit.connect(lambda: user32.UnregisterHotKey(None, HOTKEY_F9_ID))
-    app.aboutToQuit.connect(lambda: user32.UnregisterHotKey(None, HOTKEY_F10_ID))
+    # if not user32.RegisterHotKey(None, HOTKEY_F9_ID, 0, VK_F9):
+    #     raise RuntimeError("Failed to register Hotkey F9")
+    # if not user32.RegisterHotKey(None, HOTKEY_F10_ID, 0, VK_F10):
+    #     raise RuntimeError("Failed to register Hotkey F10")
+    # app.aboutToQuit.connect(lambda: user32.UnregisterHotKey(None, HOTKEY_F9_ID))
+    # app.aboutToQuit.connect(lambda: user32.UnregisterHotKey(None, HOTKEY_F10_ID))
 
     overlay.show()
     control_panel.show()

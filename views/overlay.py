@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import * 
 from PySide6.QtGui import * 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 import sys
 
 class Overlay(QWidget):
@@ -17,11 +17,19 @@ class Overlay(QWidget):
         #self.settings = None
         self.config = None
 
+        self.setTimer()
+
     # def set_draw_manager(self, manager):
     #     self.manager = manager
 
     # def set_settings(self, settings):
     #     self.config = settings
+
+    #Timer that reasserts the overlay as the topmost app, keeps it first
+    def setTimer(self):
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.raise_)
+        self.timer.start(1000)
 
     def paintEvent(self, event):
         if not self.manager or not self.config:
