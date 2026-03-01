@@ -42,6 +42,7 @@ class OverlayDrawerManager:
         for drawer in list(self.aspect_drawers.values()) + list(self.composition_drawers.values()) + [self.crosshair, self.dot_reticle]:
             drawer.color = self.current_color
 
+    #Used for composition sizing, needed because you resize based on aspect ratio
     def calculate_aspect_rect(self, full_rect, w_ratio, h_ratio):
         screen_w, screen_h = full_rect.width(), full_rect.height()
         target_w = screen_w

@@ -30,6 +30,8 @@ class OverlayController:
         self.control_panel.crosshair_toggle.toggled.connect(self.show_crosshairs_toggle)
         self.control_panel.overlay_toggle.toggled.connect(self.show_overlay_toggle)
         self.control_panel.button_quit.clicked.connect(self.quit_app)
+        self.control_panel.onion_button.clicked.connect(self.onion_screenshot)
+        self.control_panel.onion_slider.valueChanged.connect(self.opacity_slider)
 
     #Slots
     def aspect_ratio_cbox_selector(self, text):
@@ -75,6 +77,12 @@ class OverlayController:
 
         thread = threading.Thread(target=listener, daemon=True)
         thread.start()
+
+    def onion_screenshot(self):
+        print("Onion Pressed")
+
+    def opacity_slider(self):
+        print(f"Slider value: {self.control_panel.onion_slider.value()}")
 
     def quit_app(self):
         QApplication.quit()
