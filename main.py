@@ -5,6 +5,10 @@ from model.settings import Settings
 from controller.overlay_controller import OverlayController
 from views.overlay_drawers.overlay_draw_manager import OverlayDrawerManager
 from controller.overlay_controller import OverlayConfig
+
+#Testing
+from views.overlay_drawers.onion_screenshot_drawer import Screenshot
+
 import sys
 
 import ctypes
@@ -19,6 +23,7 @@ def main():
     drawer_manager = OverlayDrawerManager()
     config = OverlayConfig() #Default configuration
 
+    #When tracing the back end wires, start here, #1
     controller = OverlayController(overlay, control_panel, drawer_manager)
 
     overlay.manager = drawer_manager  # So overlay.paintEvent can access it

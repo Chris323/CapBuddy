@@ -4,6 +4,7 @@ from .aspect_ratio_drawer import AspectRatioDrawer
 from .composition_drawer import RuleofThirdsDrawer, HorizonLineDrawer
 from .crosshairs_drawer import CrosshairDrawer
 from .dot_reticle_drawer import DotReticleDrawer
+from .onion_screenshot_drawer import Screenshot
 
 
 class OverlayDrawerManager:
@@ -34,6 +35,8 @@ class OverlayDrawerManager:
         self.crosshair = CrosshairDrawer(self.current_color)
         self.dot_reticle = DotReticleDrawer(self.current_color)
 
+        self.screenshot = Screenshot()
+
     def cycle_color(self):
         self.color_index = (self.color_index + 1) % len(self.COLORS)
         self.current_color = self.COLORS[self.color_index]
@@ -54,6 +57,8 @@ class OverlayDrawerManager:
         y = full_rect.y() + (screen_h - target_h) / 2
         return QRect(int(x), int(y), int(target_w), int(target_h))
 
+
+    #4#This updates the list of draw commands for the painter in overlay. It sends a list of draw commands that the function paintEvent() loops through and paints. 
     def get_draw_commands(self, config, full_rect):
         draw_cmds = []
 
@@ -77,5 +82,8 @@ class OverlayDrawerManager:
 
         if config.show_reticle:
             draw_cmds.append((self.dot_reticle, full_rect))
+        
+        if config.screenshot == True:
+            draw_cmds.append((self.screenshot, full_rect))
 
         return draw_cmds

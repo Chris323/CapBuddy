@@ -36,6 +36,8 @@ class Overlay(QWidget):
             return
 
         painter = QPainter(self)
+        #2#This line is a bit tricky, to summarize, it pulls a list from from overlay_draw_manager, it uses its get draw commands to get instances of drawers (through use of a loop), setting the 
+        #painter in this function of the specific drawer (ap ratio, comp, cross etc) and the rect(s) provided from the list from get_draw_commands()
         for drawer, rect in self.manager.get_draw_commands(self.config, self.rect()):
             drawer.draw(painter, rect)
     

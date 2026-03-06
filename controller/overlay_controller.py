@@ -2,7 +2,7 @@ import keyboard
 import threading
 from PySide6.QtWidgets import * 
 from PySide6.QtGui import * 
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 
 class OverlayConfig:
     def __init__(self):
@@ -11,18 +11,26 @@ class OverlayConfig:
         self.show_crosshair = False
         self.show_reticle = False
 
+        self.screenshot = False
+        self.opacity_value = 0
+
 class OverlayController:
     def __init__(self, overlay, control_panel, drawer_manager, settings=None):
         self.overlay = overlay
         self.control_panel = control_panel
         self.drawer_manager = drawer_manager
-        #self.settings = settings
 
+        #self.settings = settings
+        ##Config is temp, until settings get implemented
         self.config = None
+        
+        #Timer
+        self.cooldown_timer = QTimer()
 
         self.setup_signals()
         self._create_hotkey_listener()
 
+    #3#The config is updated here, which in turn updates the overlay_draw_manager and self.config here. The update() ensures this, these signal are connected through the main.py
     def setup_signals(self):
         self.control_panel.aspect_ratio_selector.currentTextChanged.connect(self.aspect_ratio_cbox_selector)
         self.control_panel.composition_selector.currentTextChanged.connect(self.composition_cbox_selector)
@@ -51,14 +59,19 @@ class OverlayController:
         self.overlay.update()
     
     def show_overlay_toggle(self, checked=None):
+        ##If checked (defaulted to none) is not clicked on but this slot is called through a hotkey, "If" triggers. Checked is the status of the box
+        ##clicking the checkbox swaps between true and false and sends its current status. 
         if checked is None:
-        # Hotkey was pressed → manually toggle the checkbox
+        # Hotkey was pressed -> manually toggle the checkbox
+            print(f"this is checked 1: {checked}")
             current = self.control_panel.overlay_toggle.isChecked()
+            print(f"this is current 1: {current}")
             self.control_panel.overlay_toggle.setChecked(not current)
+            print(f"this is current 2: {not current}")
             return
         #toggled(bool) is emitted, once again entering this function through the signal, skipping the if statement
 
-    # If 'checked' toggled and is a bool, update the overlay
+    # If 'checked' toggled by clicking and is a bool, update the overlay
         self.overlay.setVisible(checked)
 
 
@@ -79,10 +92,23 @@ class OverlayController:
         thread.start()
 
     def onion_screenshot(self):
-        print("Onion Pressed")
+        #print("Onion Pressed")
+        self.config.screenshot = True
+        self.control_panel.onion_slider.setValue(0)
+        self.drawer_manager.screenshot.save_screenshot()
+        #The next lines disable the button for 1 second, update the overlay and reenable the button)
+        self.control_panel.onion_button.setEnabled(False)
+        self.overlay.update()
+        self.cooldown_timer.singleShot(1000, lambda: self.control_panel.onion_button.setEnabled(True))
+
 
     def opacity_slider(self):
-        print(f"Slider value: {self.control_panel.onion_slider.value()}")
+        #print(f"Slider value: {float(self.control_panel.onion_slider.value())} Data type:{type(float(self.control_panel.onion_slider.value()))}")
+        current_opacity_value = float(self.control_panel.onion_slider.value()) * 0.01
+        #print(opacity_value)
+        self.drawer_manager.screenshot.setOpacity(current_opacity_value)
+        self.config.opacity_value = current_opacity_value
+        self.overlay.update()
 
     def quit_app(self):
         QApplication.quit()
