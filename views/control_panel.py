@@ -13,7 +13,7 @@ class ControlPanel(QWidget):
         #self.overlay = overlay
 
         self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.Tool)
-        self.setWindowTitle("CapBuddy Menu")
+        self.setWindowTitle("ScreenBuddy Menu")
 
         self.aspect_ratio_selector = QComboBox()
         self.aspect_ratio_selector.addItems(["None", "9:16", "4:3", "1:1"])
@@ -34,7 +34,7 @@ class ControlPanel(QWidget):
         self.onion_slider.setMinimum(0)
         self.onion_slider.setMaximum(100)
 
-        self.button_quit = QPushButton("Quit CapBuddy")
+        self.button_quit = QPushButton("Quit ScreenBuddy")
 
         layout = QVBoxLayout()
         HboxLayoutDropdown = QHBoxLayout()
