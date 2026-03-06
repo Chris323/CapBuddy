@@ -2,7 +2,8 @@ import sys
 from PySide6.QtCore import (QDir, QPoint, QRect, QStandardPaths, Qt, QTime, QDateTime)
 from PySide6.QtGui import QImageWriter, QImageReader, QPainter, QColor
 from PySide6.QtWidgets import QFileDialog, QSizePolicy, QDialog, QMessageBox, QWidget
-import shutil, os, re
+from utils.paths import get_writable_path
+import shutil, os, re, sys
 
 class Screenshot(QWidget):
     def __init__(self):
@@ -15,9 +16,11 @@ class Screenshot(QWidget):
     #Drives this class
     def save_screenshot(self):
         fmt = "png"  # In order to avoid shadowing built-in format
-        ##Used for standard pictures path on users os profile
-        # initial_path = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.PicturesLocation) # noqa: E501
-        initial_path = QDir.currentPath() + "/images/screenshots"
+        #Used for standard pictures path on users os profile
+        doc_path = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.DocumentsLocation)
+        initial_path = os.path.join(doc_path, "Screenbuddy", "screenshots")
+        #initial_path = get_writable_path("images/screenshots")
+        os.makedirs(initial_path, exist_ok=True)
         #activates when directory has has more than 6 or more items stored.
         if len(os.listdir(initial_path)) > 5:
             self.delete_oldest_content(initial_path)
@@ -48,7 +51,8 @@ class Screenshot(QWidget):
         #file_name = fileDialog.selectedFiles()[0]
 
 
-
+        #print(os.getcwd())
+        #print(f"Current path images saved at: {initial_path}")
         if not self.original_pixmap.save(initial_path):
             path = QDir.toNativeSeparators(initial_path)
             QMessageBox.warning(
@@ -58,11 +62,11 @@ class Screenshot(QWidget):
             )
         else:
             self.use_counter += 1
-            print(f"NewCounter:{self.use_counter}")
+            #print(f"NewCounter:{self.use_counter}")
 
     def shoot_screen(self):
         self.original_pixmap = self.screen().grabWindow(0)
-    
+
     def delete_oldest_content(self, dir_path: str):
         oldest_item = ""
         initial_path = dir_path
@@ -95,6 +99,8 @@ class Screenshot(QWidget):
         self.opacity_value = value
 
     def draw(self, painter: QPainter, rect: QRect):
+        if self.original_pixmap is None:
+            return
         painter.save()
         #print("painter ran")
 

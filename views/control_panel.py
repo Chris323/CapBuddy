@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QWidget, QComboBox, QCheckBox, QVBoxLayout, QHBoxLayout, QApplication, QPushButton, QSlider, QFrame
 from PySide6.QtCore import Qt, QDir
 from PySide6.QtGui import QIcon
+from utils.paths import get_resource_path
 import keyboard
 import ctypes
 import threading
@@ -29,7 +30,7 @@ class ControlPanel(QWidget):
         self.overlay_toggle.setChecked(True) #move to model/settings.py, figure out a save state for presets and profiles memory
 
         self.onion_button = QPushButton("Onion")
-        self.onion_button.setIcon(QIcon(QDir.currentPath() + "/images/CameraIcon.png"))
+        self.onion_button.setIcon(QIcon(get_resource_path("images/CameraIcon.png")))
         self.onion_slider = QSlider(Qt.Orientation.Horizontal)
         self.onion_slider.setMinimum(0)
         self.onion_slider.setMaximum(100)

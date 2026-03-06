@@ -63,11 +63,8 @@ class OverlayController:
         ##clicking the checkbox swaps between true and false and sends its current status. 
         if checked is None:
         # Hotkey was pressed -> manually toggle the checkbox
-            print(f"this is checked 1: {checked}")
             current = self.control_panel.overlay_toggle.isChecked()
-            print(f"this is current 1: {current}")
             self.control_panel.overlay_toggle.setChecked(not current)
-            print(f"this is current 2: {not current}")
             return
         #toggled(bool) is emitted, once again entering this function through the signal, skipping the if statement
 
@@ -94,8 +91,8 @@ class OverlayController:
     def onion_screenshot(self):
         #print("Onion Pressed")
         self.config.screenshot = True
-        self.control_panel.onion_slider.setValue(0)
         self.drawer_manager.screenshot.save_screenshot()
+        self.control_panel.onion_slider.setValue(0)
         #The next lines disable the button for 1 second, update the overlay and reenable the button)
         self.control_panel.onion_button.setEnabled(False)
         self.overlay.update()
