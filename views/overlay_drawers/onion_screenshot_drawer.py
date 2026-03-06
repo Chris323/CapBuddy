@@ -18,7 +18,7 @@ class Screenshot(QWidget):
         fmt = "png"  # In order to avoid shadowing built-in format
         #Used for standard pictures path on users os profile
         doc_path = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.DocumentsLocation)
-        initial_path = os.path.join(doc_path, "Screenbuddy", "screenshots")
+        initial_path = os.path.join(doc_path, "ScreenBuddy", "screenshots")
         #initial_path = get_writable_path("images/screenshots")
         os.makedirs(initial_path, exist_ok=True)
         #activates when directory has has more than 6 or more items stored.
